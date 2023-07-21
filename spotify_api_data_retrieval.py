@@ -80,6 +80,8 @@ def get_playlist(token, playlist_id):
     '''
     Get the metadata for all the tracks in a playlist.
     
+    Note: The metadata retrieved for each track does not contain all the fields present in the 'Get Track'
+    
     Returns a list of dictionaries (for each song).
     '''
 
@@ -120,7 +122,7 @@ def get_audio_feature_for_list(token, track_ids):
     return (data)
 
 
-def data_into_df(data):
+def audio_feature_data_into_df(data):
     '''
     Grab data from dictionary and put it into a dataframe
 
@@ -140,10 +142,12 @@ def data_into_df(data):
 
 def get_audio_features_for_playlist(token, playlist_id):
     '''
-    This function takes a Spotify playlist id and returns the audio features of every track in the playlist 
-    while dropping the following columns: uri, track_href, analysis_url, and type. 
+    This function takes a Spotify playlist id and returns a pandas dataframe containing audio features of every track in the           playlist while dropping the following columns: uri, track_href, analysis_url, and type. 
 
     It also moves the id column into a better position
+    
+    token: bearer token id 
+    playlist_id: playlist ID formatted as a string
     '''
 
     # get track metadata from playlists
@@ -160,9 +164,10 @@ def get_audio_features_for_playlist(token, playlist_id):
     playlist_tracks_audio_features = get_audio_feature_for_list(token, playlist_track_ids)
 
     # transfer to pandas dataframe and clean dataframe
-    df = data_into_df(playlist_tracks_audio_features)
+    df = audio_feature_data_into_df(playlist_tracks_audio_features)
 
     return (df)
+
 
 def compile_playlists(token, playlist_ids):
     '''
@@ -182,3 +187,138 @@ def compile_playlists(token, playlist_ids):
         playlists_w_audio_data[name] = data
         
     return(playlists_w_audio_data)
+
+
+def get_artist_details_from_track(token, track_id):
+    '''
+    This function (given a track_id) grabs the track ID, track name, artist ID, and artist name as a dictionary.
+    
+    token: bearer token id 
+    track_id: track ID formatted as a string
+    '''
+    
+    # build request to get track information
+    url = "https://api.spotify.com/v1/tracks/"
+    headers = get_auth_header(token)
+
+    track_metadata_url = url + track_id
+    result = get(track_metadata_url, headers=headers)
+    json_result = json.loads(result.content)
+    
+    # grab the following columns and delete other columns from track information
+    artist_info = json_result['album']['artists'][0]
+    del artist_info['external_urls']
+    del artist_info['href']
+    del artist_info['type']
+    del artist_info['uri']
+    artist_info['artist_id'] = artist_info['id']
+    del artist_info['id']
+    artist_info['track_id'] = track_id
+    artist_info['track_name'] = json_result['album']['name']
+    return(artist_info)
+
+
+def get_artist_genre(token, artist_id):
+    '''
+    This function (given an artist_id) grabs the artist_id, name, and their related genres 
+    and returns them in a dictionary.
+    
+    token: bearer token ID
+    artist_id: artist ID formatted as a string
+    '''
+    
+    # build request to get track information
+    url = "https://api.spotify.com/v1/artists/"
+    headers = get_auth_header(token)
+
+    artist_metadata_url = url + artist_id
+    result = get(artist_metadata_url, headers=headers)
+    json_result = json.loads(result.content)
+    
+    # grab information from json to put in dictionary
+    genres = json_result['genres']
+    name = json_result['name']
+    data = {'artist_id': artist_id, 'name': name}
+    if len(genres) == 1:
+        data['Genre 1'] = genres[0]
+    if len(genres) > 1:
+        for genre in genres:
+            data[f'Genre {genres.index(genre) + 1}'] = genre
+    return(data)
+
+
+def df_export_csv(df, filename):
+    '''
+    This function exports a dataframe as a .csv file with the name of the dataframe as the filename.
+    
+    df: a pandas dataframe
+    '''
+    
+    # export dataframe to csv
+    df.to_csv(filename, sep = ',', index=False, encoding='utf-8')
+    
+
+def get_genres_for_playlist(token, playlist_id):
+    '''
+    This function gets the artist name, ID, and genre information for all the tracks in a playlist returned as a pandas dataframe.
+    
+    token: bearer token ID
+    playlist_id: playlist ID formatted as a string
+    '''
+    # get track metadata from playlists
+    playlist = get_playlist(token, playlist_id)
+    tracks = playlist["tracks"]["items"]
+
+    # extract track IDs from dictionary and store in list
+    tracks_ids = []
+
+    for song in tracks:
+        tracks_ids.append(song["track"]["id"])
+        
+    # get artist IDs for each track in playlist
+    artists_ids = []
+    
+    for track_id in tracks_ids:
+        artists_ids.append(get_artist_details_from_track(token, track_id)['artist_id'])
+        
+    print(artists_ids)
+        
+    # get genres for each artist
+    tracks_genre = []
+    
+    for artist_id in artists_ids:
+        tracks_genre.append(get_artist_genre(token, artist_id))
+
+    df = pd.DataFrame(tracks_genre)
+    
+    return(df)
+
+
+def get_track_and_artist_info_for_playlist(token, playlist_id):
+    '''
+    This function returns a pandas dataframe containing the track_id, track name, and  artist_id, and artist name
+    for all tracks in the given playlist.
+    
+    token: bearer token ID
+    playlist_id: playlist ID formatted as a string
+    '''
+    
+    # get track metadata from playlists
+    playlist = get_playlist(token, playlist_id)
+    tracks = playlist["tracks"]["items"]
+
+    # extract track IDs from dictionary and store in list
+    tracks_ids = []
+
+    for song in tracks:
+        tracks_ids.append(song["track"]["id"])
+    
+    # get artist and track details from track ID
+    information = []
+    
+    for track_id in tracks_ids:
+        information.append(get_artist_details_from_track(token, track_id))
+        
+    df = pd.DataFrame(information)
+    
+    return(df)
