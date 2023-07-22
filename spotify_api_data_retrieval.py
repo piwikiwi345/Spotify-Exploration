@@ -215,6 +215,7 @@ def get_artist_details_from_track(token, track_id):
     del artist_info['id']
     artist_info['track_id'] = track_id
     artist_info['track_name'] = json_result['album']['name']
+    artist_info['popularity'] = json_result['popularity']
     return(artist_info)
 
 
@@ -255,7 +256,7 @@ def df_export_csv(df, filename):
     '''
     
     # export dataframe to csv
-    df.to_csv(filename, sep = ',', index=False, encoding='utf-8')
+    df.to_csv(f'{filename}.csv', sep = ',', index=False, encoding='utf-8')
     
 
 def get_genres_for_playlist(token, playlist_id):
