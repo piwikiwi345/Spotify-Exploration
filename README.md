@@ -1,5 +1,5 @@
 # Spotify-Exploration
-An exploration of Spotify using Python, SQL, and Tableau to gather, analyze, and draw insights from track data on the Spotify Weekly Charts
+An exploration of Spotify using Python, SQL, and Tableau to gather, analyze, and visualize insights from track data on the Spotify Weekly Charts
 
 ## Gathering Data through Spotify API
 
