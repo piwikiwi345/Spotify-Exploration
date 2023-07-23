@@ -93,7 +93,7 @@ ORDER BY COUNT(*) desc;
 What are the most danceable tracks in the top 50 USA charts?
 
 ```SQL
-SELECT track_name, artist_name, danceability
+SELECT track_name, name, danceability
 FROM usa
 ORDER BY danceability;
 ```
