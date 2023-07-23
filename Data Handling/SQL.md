@@ -1,6 +1,6 @@
 # Data Handling Using SQL
 
-In this markdown file, I have included the SQL code I used to handle the raw .csv files I imported from the Spotify API. Included in this repository is the spotify [database](spotify.db) which holds the relevant data for this project. 
+In this markdown file, I have included the SQL code I used to handle the raw .csv files I imported from the Spotify API. Included in this repository my own Spotify [database](spotify.db) which holds the relevant data for this project. 
 
 
 
