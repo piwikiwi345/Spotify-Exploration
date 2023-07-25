@@ -29,13 +29,13 @@ create table usa_audio_features (id TEXT, danceability FLOAT, energy FLOAT, key 
 .import --skip 1 data/usa/top_songs_usa_audio_features.csv usa_audio_features
 ```
 
-While I have traditionally used the terminal to run SQL code through sqlite3, for the majority of the SQL code in this project, I actually ended up using SQLiteStudio as its GUI makes creating tables, importing data, and querying much more enjoyable. :)
+While I have traditionally used the terminal to run SQL code through sqlite3, for the majority of the SQL code in this project, I actually ended up using SQLiteStudio; its GUI makes creating tables, importing data, and querying much more enjoyable. :)
 
 
 
 ## Combining and Exporting CSV files using JOINS
 
-While I could have joined the original pandas dataframes in my jupyter notebooks, I wanted to showcase my knowledge on JOINS to combine the .csv files for each region and export them so I could use them for analysis as shown in this [notebook](Analysis.ipynb).
+While I could have joined the original pandas dataframes in my jupyter notebooks, I wanted to showcase my knowledge on SQL joins to combine the .csv files for each region and export them so I could use them for analysis as shown in this [notebook](Analysis.ipynb).
 
 ### Combined USA Table & Export
 
