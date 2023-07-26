@@ -67,54 +67,28 @@ def create_SQL_commands(country):
     .import --skip 1 /Users/prithvivenkataswamy/Documents/Spotify-Exploration/data/{country}/top_songs_{country}_audio_features.csv {country}_audio_features
     ''')
 
-def combine_tables(country, db_path):
+def combined_tables_SQL_command(country):
     '''
-    This function joins three specific tables into one.
+    This function writes the SQL to join the specific tables into one csv file and export
     
     country: a string containing the name of a country
-    db_path: a string containing the database local path
     '''
-    # Replace 'your_database.db' with the path to your SQLite database file.
-    
 
-    try:
-        # Connect to the database
-        connection = sqlite3.connect(db_path)
-        cursor = connection.cursor()
-
-        # Create the table using the table_name parameter
-        create_table_query = f'''
+    print(f'''
             CREATE TABLE {country} AS
             SELECT DISTINCT *
             FROM {country}_track_and_artist_info
             JOIN {country}_audio_features ON {country}_track_and_artist_info.track_id = {country}_audio_features.id
             JOIN {country}_genres ON {country}_track_and_artist_info.artist_id = {country}_genres.artist_id;
-        '''
-        cursor.execute(create_table_query)
+            
+            ALTER TABLE {country}
+            DROP COLUMN 'artist_id:1';
 
-        connection.commit()
+            ALTER TABLE {country}
+            DROP COLUMN 'name:1';
 
-        rows = cursor.fetchall()
-
-        # Replace 'exported_table.csv' with the desired CSV file name
-        csv_file = f'{country}.csv'
-
-        # Write the data to the CSV file
-        with open(csv_file, 'w', newline='') as file:
-            csv_writer = csv.writer(file)
-
-            # Write the column headers as the first row in the CSV file
-            column_names = [description[0] for description in cursor.description]
-            csv_writer.writerow(column_names)
-
-            # Write the data rows to the CSV file
-            csv_writer.writerows(rows)
-
-    except sqlite3.Error as e:
-        print(f"Error: {e}")
-
-    finally:
-        # Close the database connection when done
-        if connection:
-            connection.close()
+            .output /Users/prithvivenkataswamy/Documents/Spotify-Exploration/data/{country}/{country}.csv
+            SELECT * FROM {country};
+        ''')
+  
 
