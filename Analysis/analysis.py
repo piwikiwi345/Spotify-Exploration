@@ -71,3 +71,32 @@ def plot_bar_chart(data_dict, title=None, x_label=None, y_label=None, bar_width 
     # Show the plot
     plt.tight_layout()
     plt.show()
+    
+def plot_histogram(data, column_name, bins=12, intervals=1, extremes=False):
+    '''
+    This function plots a histogram when given data.
+    '''
+    # Remove top and right spines
+    plt.gca().spines['top'].set_visible(False)
+    plt.gca().spines['right'].set_visible(False)
+    
+    # Only show min and max
+    if extremes == True:
+        min_value = data.min()
+        max_value = data.max()
+        plt.xticks([min_value, max_value])
+    else:
+        x_tick_positions = [i for i in range(0, bins, )]  
+        plt.xticks(x_tick_positions)
+
+    # Create the histogram
+    plt.hist(data, bins)  # You can adjust the number of bins as per your preference
+    plt.xlabel(column_name)
+    plt.ylabel('Frequency')
+    plt.title(f'Histogram of {column_name}')
+    plt.show()
+    
+def milliseconds_to_minutes(milliseconds):
+    seconds = milliseconds / 1000
+    minutes = seconds / 60
+    return minutes

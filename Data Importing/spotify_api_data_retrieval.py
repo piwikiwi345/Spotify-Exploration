@@ -214,7 +214,7 @@ def get_artist_details_from_track(token, track_id):
     artist_info['artist_id'] = artist_info['id']
     del artist_info['id']
     artist_info['track_id'] = track_id
-    artist_info['track_name'] = json_result['album']['name']
+    artist_info['track_name'] = json_result['name']
     artist_info['popularity'] = json_result['popularity']
     return(artist_info)
 
