@@ -17,13 +17,13 @@ For each country's chart, I created a combined .csv file that holds all the info
 
 I accomplished this by using JOINS in SQL and then exporting the combined tables as .csv files. You can see my process in the following markdown [file](Data%20Handling/SQL.md).
 
-I then combined each country's combined tables into one master table that lives in [this](/Users/prithvivenkataswamy/Documents/Spotify-Exploration/data/master.csv) .csv file. You can see my process and code in the following jupyter [notebook](/Users/prithvivenkataswamy/Documents/Spotify-Exploration/Data Handling/handling.ipynb).
+I then combined each country's combined tables into one master table that lives in [this](data/master.csv) .csv file. You can see my process and code in the following jupyter [notebook](/Users/prithvivenkataswamy/Documents/Spotify-Exploration/Data Handling/handling.ipynb).
 
 ## Exploratory Analysis
 
 ### Python
 
-The following jupyer [notebook](/Users/prithvivenkataswamy/Documents/Spotify-Exploration/Analysis/Analysis.ipynb) contains written analysis on descriptive statistics and graphics created using matplotlib and [Tableau](/Users/prithvivenkataswamy/Documents/Spotify-Exploration/Analysis/graphics).
+The following jupyer [notebook](Analysis/Analysis.ipynb) contains written analysis on descriptive statistics and graphics created using matplotlib and [Tableau](Analysis/graphics).
 
 ### Excel
 
