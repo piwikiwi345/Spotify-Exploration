@@ -772,6 +772,53 @@
       </table>
       <simple-id uuid='{F5EDF32C-D7A1-4739-B8DF-C1846D699BCD}' />
     </worksheet>
+    <worksheet name='Japan'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontalignment='1'>Japanese Song Durations by Artist</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='japan' name='federated.0flkvdh1k6lylz1e9zcu211u7tne' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0flkvdh1k6lylz1e9zcu211u7tne'>
+            <column caption='Duration Ms' datatype='integer' name='[duration_ms]' role='measure' type='quantitative' />
+            <column caption='Name' datatype='string' name='[name]' role='dimension' type='nominal' />
+            <column-instance column='[duration_ms]' derivation='None' name='[none:duration_ms:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[name]' derivation='None' name='[none:name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[track_name]' derivation='None' name='[none:track_name:nk]' pivot='key' type='nominal' />
+            <column caption='Track Name' datatype='string' name='[track_name]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Circle' />
+            <encodings>
+              <lod column='[federated.0flkvdh1k6lylz1e9zcu211u7tne].[none:track_name:nk]' />
+            </encodings>
+            <reference-line axis-column='[federated.0flkvdh1k6lylz1e9zcu211u7tne].[none:duration_ms:qk]' boxplot-mark-exclusion='false' boxplot-whisker-type='standard' enable-instant-analytics='true' formula='average' id='refline0' label-type='automatic' probability='95' scope='per-cell' symmetric='false' value-column='[federated.0flkvdh1k6lylz1e9zcu211u7tne].[none:duration_ms:qk]' z-order='1' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='size' value='0.25' />
+                <format attr='mark-color' value='#d37295' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.0flkvdh1k6lylz1e9zcu211u7tne].[none:name:nk]</rows>
+        <cols>[federated.0flkvdh1k6lylz1e9zcu211u7tne].[none:duration_ms:qk]</cols>
+      </table>
+      <simple-id uuid='{F8C10EE2-EEFF-4B8D-AE44-CEE83F3F7F1F}' />
+    </worksheet>
     <worksheet name='Nigeria'>
       <layout-options>
         <title>
@@ -927,52 +974,6 @@
         <cols />
       </table>
       <simple-id uuid='{ABF8C1AB-57D4-4CF4-9D6C-EDD77DC3EE32}' />
-    </worksheet>
-    <worksheet name='Sheet 6'>
-      <table>
-        <view>
-          <datasources>
-            <datasource caption='japan' name='federated.0flkvdh1k6lylz1e9zcu211u7tne' />
-          </datasources>
-          <datasource-dependencies datasource='federated.0flkvdh1k6lylz1e9zcu211u7tne'>
-            <column-instance column='[duration_ms]' derivation='Avg' name='[diff:avg:duration_ms:qk]' pivot='key' type='quantitative'>
-              <table-calc diff-options='Relative' ordering-type='Columns' type='Difference'>
-                <address>
-                  <value>-1</value>
-                </address>
-              </table-calc>
-            </column-instance>
-            <column caption='Duration Ms' datatype='integer' name='[duration_ms]' role='measure' type='quantitative' />
-            <column caption='Name' datatype='string' name='[name]' role='dimension' type='nominal' />
-            <column-instance column='[name]' derivation='None' name='[none:name:nk]' pivot='key' type='nominal' />
-            <column-instance column='[track_name]' derivation='None' name='[none:track_name:nk]' pivot='key' type='nominal' />
-            <column caption='Track Name' datatype='string' name='[track_name]' role='dimension' type='nominal' />
-          </datasource-dependencies>
-          <aggregation value='true' />
-        </view>
-        <style />
-        <panes>
-          <pane selection-relaxation-option='selection-relaxation-allow'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='Circle' />
-            <encodings>
-              <lod column='[federated.0flkvdh1k6lylz1e9zcu211u7tne].[none:track_name:nk]' />
-            </encodings>
-            <reference-line axis-column='[federated.0flkvdh1k6lylz1e9zcu211u7tne].[diff:avg:duration_ms:qk]' boxplot-mark-exclusion='false' boxplot-whisker-type='standard' enable-instant-analytics='true' formula='average' id='refline0' label-type='automatic' probability='95' scope='per-cell' symmetric='false' value-column='[federated.0flkvdh1k6lylz1e9zcu211u7tne].[diff:avg:duration_ms:qk]' z-order='1' />
-            <style>
-              <style-rule element='mark'>
-                <format attr='size' value='0.25' />
-                <format attr='mark-color' value='#d37295' />
-              </style-rule>
-            </style>
-          </pane>
-        </panes>
-        <rows>[federated.0flkvdh1k6lylz1e9zcu211u7tne].[none:name:nk]</rows>
-        <cols>[federated.0flkvdh1k6lylz1e9zcu211u7tne].[diff:avg:duration_ms:qk]</cols>
-      </table>
-      <simple-id uuid='{F8C10EE2-EEFF-4B8D-AE44-CEE83F3F7F1F}' />
     </worksheet>
   </worksheets>
   <dashboards>
@@ -1178,7 +1179,7 @@
       <active id='-1' />
       <simple-id uuid='{82055029-C059-4DAE-9421-BEEF5CA3FE29}' />
     </window>
-    <window class='worksheet' maximized='true' name='Sheet 6'>
+    <window class='worksheet' maximized='true' name='Japan'>
       <cards>
         <edge name='left'>
           <strip size='160'>
