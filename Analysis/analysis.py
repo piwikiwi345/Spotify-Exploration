@@ -112,7 +112,7 @@ def df_export_csv(df, filename):
     # export dataframe to csv
     df.to_csv(f'{filename}.csv', sep = ',', index=False, encoding='utf-8')
 
-def get_genre_counts(df, filepath, show_dict=True):
+def get_genre_counts(df, filepath, show_info=True):
     '''
     This function takes a dataframe of spotify genre data and exports the unique genres and their counts as a .csv file
     at a designated location and with a given name
@@ -131,7 +131,7 @@ def get_genre_counts(df, filepath, show_dict=True):
     genres = list(genres)
     counts = unique_genres.values()
     counts = list(counts)
-    if show_dict == True:
+    if show_infos == True:
         print(genres)
         print(counts)
     else:
