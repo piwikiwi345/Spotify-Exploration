@@ -23,7 +23,7 @@ I then combined each country's combined tables into one master table that lives 
 
 ### Python
 
-The following jupyer [notebook](/Users/prithvivenkataswamy/Documents/Spotify-Exploration/Analysis/Analysis.ipynb) contains written analysis on descriptive statistics and graphics created using matplotlib and [Tableau](/Users/prithvivenkataswamy/Documents/Spotify-Exploration/Analysis/graphics).s
+The following jupyer [notebook](/Users/prithvivenkataswamy/Documents/Spotify-Exploration/Analysis/Analysis.ipynb) contains written analysis on descriptive statistics and graphics created using matplotlib and [Tableau](/Users/prithvivenkataswamy/Documents/Spotify-Exploration/Analysis/graphics).
 
 ### Excel
 
