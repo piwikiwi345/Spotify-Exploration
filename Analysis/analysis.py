@@ -4,6 +4,7 @@ This script contains functions that are used in the jupyter notebook located in 
 
 import math
 import matplotlib.pyplot as plt
+import pandas as pd
 
 def count_unique_genres(dataframe):
     '''
@@ -100,3 +101,48 @@ def milliseconds_to_minutes(milliseconds):
     seconds = milliseconds / 1000
     minutes = seconds / 60
     return minutes
+
+def df_export_csv(df, filename):
+    '''
+    This function exports a dataframe as a .csv file with the name of the dataframe as the filename.
+    
+    df: a pandas dataframe
+    '''
+    
+    # export dataframe to csv
+    df.to_csv(f'{filename}.csv', sep = ',', index=False, encoding='utf-8')
+
+def get_genre_counts(df, filepath, show_dict=True):
+    '''
+    This function takes a dataframe of spotify genre data and exports the unique genres and their counts as a .csv file
+    at a designated location and with a given name
+
+    It also prints the information if requested.
+
+    df: a genre dataframe
+    filepath: a string containing the filepath
+    show_dict: a Boolean which determines whether the function will print  the unique genres and their counts
+    '''
+
+    unique_genres = count_unique_genres(df)
+    
+    
+    genres = unique_genres.keys()
+    genres = list(genres)
+    counts = unique_genres.values()
+    counts = list(counts)
+    if show_dict == True:
+        print(genres)
+        print(counts)
+    else:
+        x = 5
+    
+    
+    genre_counts = {
+    'genres': genres,
+    'count' : counts
+}
+
+    df = pd.DataFrame(genre_counts)
+
+    df_export_csv(df, filepath)
