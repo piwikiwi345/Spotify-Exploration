@@ -131,7 +131,7 @@ def get_genre_counts(df, filepath, show_info=True):
     genres = list(genres)
     counts = unique_genres.values()
     counts = list(counts)
-    if show_infos == True:
+    if show_info == True:
         print(genres)
         print(counts)
     else:
