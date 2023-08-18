@@ -244,3 +244,61 @@ GROUP BY time_signature;;
 |----------------|-------|
 |3	|6|
 |4|	44|
+<br>
+<br>
+
+### 10. What are the most common keys in the top 50 Nigeria charts?
+
+```SQL
+WITH KeyMapping AS (
+    SELECT -1 AS KeyValue, 'No Key Detected' AS KeyName
+    UNION ALL
+    SELECT 0, 'C'
+    UNION ALL
+    SELECT 1, 'C♯/D♭'
+    UNION ALL
+    SELECT 2, 'D'
+    UNION ALL
+    SELECT 3, 'D♯/E♭'
+    UNION ALL
+    SELECT 4, 'E'
+    UNION ALL
+    SELECT 5, 'F'
+    UNION ALL
+    SELECT 6, 'F♯/G♭'
+    UNION ALL
+    SELECT 7, 'G'
+    UNION ALL
+    SELECT 8, 'G♯/A♭'
+    UNION ALL
+    SELECT 9, 'A'
+    UNION ALL
+    SELECT 10, 'A♯/B♭'
+    UNION ALL
+    SELECT 11, 'B'
+),
+TrackKeys AS (
+    SELECT key, KeyName
+    FROM nigeria
+    JOIN KeyMapping ON key = KeyMapping.KeyValue
+)
+SELECT KeyName as "Key Name", COUNT(key) AS "Key Count"
+FROM TrackKeys
+GROUP BY KeyName
+ORDER BY "Key Count" DESC;
+```
+<br>
+
+| Key Name| Key Count |
+|---------|-----------|
+|C♯/D♭ |	12|
+|D|	7|
+|F♯/G♭|	6|
+|G♯/A♭|	5|
+|D♯/E♭|	4|
+|A♯/B♭|	4|
+|G	|3|
+|F|	3|
+|B|	3|
+|E|	2|
+|C|	1|
