@@ -81,6 +81,7 @@ GROUP BY name
 ORDER BY COUNT(*) desc;
 ```
 <br>
+
 | name            |songs|
 |-----------------|-----|
 | Taylor Swift    |  6  |
@@ -101,6 +102,7 @@ FROM usa
 ORDER BY danceability DESC;
 ```
 <br>
+
 | track_name                          | name         | danceability |
 |-------------------------------------|--------------|--------------|
 | Peso Pluma: Bzrp Music Sessions, Vol. 55   | Bizarrap     | 0.854 |
@@ -135,6 +137,7 @@ FROM india
 WHERE track_name LIKE "%KABIR SINGH%";
 ```
 <br>
+
 | Track Name | Name |
 |------------|------|
 | Tujhe Kitna Chahne Lage (From "Kabir Singh") | Arijit Singh |
@@ -156,6 +159,7 @@ FROM (
 ) AS subquery;
 ```
 <br>
+
 | Maximum | Minimum | Mean | Std. Dev |
 |---------|---------|------|----------|
 | 99 | 48	| 87.86	| 8.86867912305745|
