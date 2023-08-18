@@ -230,3 +230,17 @@ INNER JOIN thailand ON japan.track_name = thailand.track_name;
 | OMG | NewJeans |
 <br>
 <br>
+
+### 9. How common are the different time signatures in the top 50 Thailand charts?
+
+```SQL
+SELECT DISTINCT time_signature AS "Time Signature", COUNT(time_signature) as Count
+FROM thailand
+GROUP BY time_signature;;
+```
+<br>
+
+| Time Signature | Count |
+|----------------|-------|
+|3	|6|
+|4|	44|
