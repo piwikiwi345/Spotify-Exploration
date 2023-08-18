@@ -165,3 +165,38 @@ FROM (
 | 99 | 48	| 87.86	| 8.86867912305745|
 <br>
 <br>
+
+### What songs are in the top 50 chart for USA, Mexico, and India?
+
+```SQL
+SELECT track_name as "Track Name", name as "Name"
+FROM india
+INNER JOIN mexico ON india.track_name = mexico.track_name
+INNER JOIN usa ON india.track_name = usa.track_name;
+```
+<br>
+
+
+| Track Name | Name |
+|------------|------|
+| Seven (feat. Latto) (Explicit Ver.) | Jung Kook |
+<br>
+<br>
+
+### What songs are doing well across East Asian markets?
+
+```SQL
+SELECT track_name as "Track Name", name as "Name"
+FROM japan
+INNER JOIN hong_kong ON japan.track_name = hong_kong.track_name
+INNER JOIN thailand ON japan.track_name = thailand.track_name;
+```
+<br>
+
+| Track Name | Name |
+|------------|------|
+| Seven (feat. Latto) (Explicit Ver.) | Jung Kook |
+| Super Shy | NewJeans |
+| OMG | NewJeans |
+<br>
+<br>
