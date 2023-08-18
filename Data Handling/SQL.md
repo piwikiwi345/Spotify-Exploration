@@ -72,7 +72,7 @@ SELECT * FROM usa
 
 I ran some queries to answer some initial questions I had about the charts.
 
-### What artists have multiple songs in the top 50 USA charts? How many songs do they have?
+### 1. What artists have multiple songs in the top 50 USA charts? How many songs do they have?
 
 ```SQL
 SELECT name, COUNT(*) as songs
@@ -94,7 +94,7 @@ ORDER BY COUNT(*) desc;
 <br>
 <br>
 
-### What are the most danceable tracks in the top 50 USA charts?
+### 2. What are the most danceable tracks in the top 50 USA charts?
 
 ```SQL
 SELECT track_name, name, danceability
@@ -118,7 +118,7 @@ ORDER BY danceability DESC;
 <br>
 <br>
 
-### What is the average popularity for the top 50 Hong Kong charts?
+### 3. What is the average popularity for the top 50 Hong Kong charts?
 
 ```SQL
 SELECT AVG(popularity)
@@ -129,23 +129,54 @@ The average popularity is 73.22
 <br>
 <br>
 
-### What songs on the top 50 India charts come from the film "Kabir Singh"?
+### 4. What songs on the top 50 India charts come from the film "Kabir Singh"?
 
 ```SQL
-SELECT track_name as "Track Name", name as "Name"
+SELECT track_name as "Track Name", name as "Artist Name"
 FROM india
 WHERE track_name LIKE "%KABIR SINGH%";
 ```
 <br>
 
-| Track Name | Name |
+| Track Name | Artist Name |
 |------------|------|
 | Tujhe Kitna Chahne Lage (From "Kabir Singh") | Arijit Singh |
 | Kaise Hua (From "Kabir Singh") | Vishal Mishra |
 <br>
 <br>
 
-### Grab descriptive statistics for popularity for the top 50 Mexico chart.
+### 5. What songs on the top 50 India charts come from any Bollywood film?
+
+```SQL
+SELECT track_name as "Track Name", name as "Artist Name"
+FROM india
+WHERE track_name LIKE "%FROM%";
+```
+<br>
+
+| Track Name | Artist Name |
+|------------|-------------|
+|Phir Aur Kya Chahiye (From "Zara Hatke Zara Bachke")|	Sachin-Jigar|
+|Naa Ready (From "Leo")	|Anirudh Ravichander|
+|Tum Kya Mile (From "Rocky Aur Rani Kii Prem Kahaani")|	Various Artists|
+|Kaavaalaa (From "Jailer")|	Anirudh Ravichander|
+|O Bedardeya (From "Tu Jhoothi Main Makkaar")|	Pritam|
+|Agar Tum Saath Ho (From "Tamasha")	|Arijit Singh|
+|Tumhe Kitna Pyaar Karte (From "Bawaal")|	Mithoon|
+|Tere Hawaale (From "Laal Singh Chaddha")	|Pritam|
+|Raataan Lambiyan (From "Shershaah")	|Tanishk Bagchi|
+|What Jhumka ? (From "Rocky Aur Rani Kii Prem Kahaani")|	Various Artists|
+|Ram Siya Ram (From "Adipurush")	|Sachet-Parampara|
+|Tujhe Kitna Chahne Lage (From "Kabir Singh")|	Arijit Singh|
+|Pyaar Hota Kayi Baar Hai (From "Tu Jhoothi Main Makkaar")	|Pritam|
+|Ranjha (From "Shershaah")	|Various Artists|
+|Janiye (from the Netflix Film "Chor Nikal Ke Bhaga")	|Vishal Mishra|
+|Kaise Hua (From "Kabir Singh")	|Vishal Mishra|
+|Naseeb Se (From "Satyaprem Ki Katha")	|Payal Dev|
+<br>
+<br>
+
+### 6. Grab descriptive statistics for popularity for the top 50 Mexico chart.
 
 ```SQL
 SELECT
@@ -166,7 +197,7 @@ FROM (
 <br>
 <br>
 
-### What songs are in the top 50 chart for USA, Mexico, and India?
+### 7. What songs are in the top 50 chart for USA, Mexico, and India?
 
 ```SQL
 SELECT track_name as "Track Name", name as "Name"
@@ -176,14 +207,13 @@ INNER JOIN usa ON india.track_name = usa.track_name;
 ```
 <br>
 
-
 | Track Name | Name |
 |------------|------|
 | Seven (feat. Latto) (Explicit Ver.) | Jung Kook |
 <br>
 <br>
 
-### What songs are doing well across East Asian markets?
+### 8. What songs are doing well across East Asian markets?
 
 ```SQL
 SELECT track_name as "Track Name", name as "Name"
