@@ -75,12 +75,12 @@ I ran some queries to answer some initial questions I had about the charts.
 What artists have multiple songs in the top 50 USA charts? How many songs do they have?
 
 ```SQL
-SELECT name, COUNT(*) 
+SELECT name, COUNT(*) as songs
 FROM usa_track_and_artist_info 
 GROUP BY name
 ORDER BY COUNT(*) desc;
 ```
-| Name            |Songs|
+| name            |songs|
 |-----------------|-----|
 | Taylor Swift    |  6  |
 | Morgan Wallen   |  4  |
@@ -95,28 +95,55 @@ What are the most danceable tracks in the top 50 USA charts?
 ```SQL
 SELECT track_name, name, danceability
 FROM usa
-ORDER BY danceability;
+ORDER BY danceability DESC;
 ```
 
 | track_name                          | name         | danceability |
 |-------------------------------------|--------------|--------------|
 | Peso Pluma: Bzrp Music Sessions, Vol. 55   | Bizarrap     | 0.854 |
-| a Gift & a Curse                   | Gunna        | 0.847        |
+| fukumean                           | Gunna        | 0.847        |
 | Search & Rescue                    | Drake        | 0.817        |
 | La Bebe (Remix)                    | Yng Lvcas    | 0.812        |
 | Seven (feat. Latto)                | Jung Kook    | 0.802        |
-| Rave & Roses Ultra                 | Rema         | 0.799        |
-| Almost Healed                      | Lil Durk     | 0.787        |
+| Calm Down                          | Rema         | 0.799        |
+| All My Life (feat. J. Cole)        | Lil Durk     | 0.787        |
 | TQM                                 | Fuerza Regida| 0.786        |
 | SABOR FRESA                        | Fuerza Regida| 0.785        |
-| The Beginning: Cupid               | FIFTY FIFTY  | 0.783        |
+| Cupid - Twin Ver.                  | FIFTY FIFTY  | 0.783        |
 
 
-What are the most common genres in the top 50 USA charts?
+What is the average popularity for the top 50 Hong Kong charts?
 
 ```SQL
+SELECT AVG(popularity)
+FROM hong_kong;
+```
 
+The average popularity is 73.22
+
+
+What songs on the top 50 India charts come from the film "Kabir Singh"?
+
+```SQL
+SELECT * 
+FROM india
+WHERE track_name LIKE "%KABIR SINGH%";
 ```
 
 
+Grab descriptive statistics for popularity for the top 50 Mexico chart.
+
+```SQL
+SELECT
+    (SELECT MAX(popularity) FROM mexico) AS Maximum,
+    (SELECT MIN(popularity) FROM mexico) AS Minimum,
+    (SELECT AVG(popularity) FROM mexico) AS Mean,
+    SQRT(SUM(power_diff_sq) / (COUNT(*) - 1)) AS "Std. Dev"
+FROM (
+    SELECT POWER(popularity - AVG(popularity) OVER(), 2) AS power_diff_sq
+    FROM mexico
+) AS subquery;
+```
+Maximum | Minimum | Mean | Std. Dev |
+99 | 48	| 87.86	| 8.86867912305745
 
