@@ -72,7 +72,7 @@ SELECT * FROM usa
 
 I ran some queries to answer some initial questions I had about the charts.
 
-What artists have multiple songs in the top 50 USA charts? How many songs do they have?
+### What artists have multiple songs in the top 50 USA charts? How many songs do they have?
 
 ```SQL
 SELECT name, COUNT(*) as songs
@@ -80,6 +80,7 @@ FROM usa_track_and_artist_info
 GROUP BY name
 ORDER BY COUNT(*) desc;
 ```
+<br>
 | name            |songs|
 |-----------------|-----|
 | Taylor Swift    |  6  |
@@ -89,15 +90,17 @@ ORDER BY COUNT(*) desc;
 | Peso Pluma	  |  2  |
 | Fuerza Regida	  |  2  |  
 | Drake	          |  2  |
+<br>
+<br>
 
-What are the most danceable tracks in the top 50 USA charts?
+### What are the most danceable tracks in the top 50 USA charts?
 
 ```SQL
 SELECT track_name, name, danceability
 FROM usa
 ORDER BY danceability DESC;
 ```
-
+<br>
 | track_name                          | name         | danceability |
 |-------------------------------------|--------------|--------------|
 | Peso Pluma: Bzrp Music Sessions, Vol. 55   | Bizarrap     | 0.854 |
@@ -110,28 +113,36 @@ ORDER BY danceability DESC;
 | TQM                                 | Fuerza Regida| 0.786        |
 | SABOR FRESA                        | Fuerza Regida| 0.785        |
 | Cupid - Twin Ver.                  | FIFTY FIFTY  | 0.783        |
+<br>
+<br>
 
-
-What is the average popularity for the top 50 Hong Kong charts?
+### What is the average popularity for the top 50 Hong Kong charts?
 
 ```SQL
 SELECT AVG(popularity)
 FROM hong_kong;
 ```
-
+<br>
 The average popularity is 73.22
+<br>
+<br>
 
-
-What songs on the top 50 India charts come from the film "Kabir Singh"?
+### What songs on the top 50 India charts come from the film "Kabir Singh"?
 
 ```SQL
-SELECT * 
+SELECT track_name as "Track Name", name as "Name"
 FROM india
 WHERE track_name LIKE "%KABIR SINGH%";
 ```
+<br>
+| Track Name | Name |
+|------------|------|
+| Tujhe Kitna Chahne Lage (From "Kabir Singh") | Arijit Singh |
+| Kaise Hua (From "Kabir Singh") | Vishal Mishra |
+<br>
+<br>
 
-
-Grab descriptive statistics for popularity for the top 50 Mexico chart.
+### Grab descriptive statistics for popularity for the top 50 Mexico chart.
 
 ```SQL
 SELECT
@@ -144,6 +155,9 @@ FROM (
     FROM mexico
 ) AS subquery;
 ```
-Maximum | Minimum | Mean | Std. Dev |
-99 | 48	| 87.86	| 8.86867912305745
-
+<br>
+| Maximum | Minimum | Mean | Std. Dev |
+|---------|---------|------|----------|
+| 99 | 48	| 87.86	| 8.86867912305745|
+<br>
+<br>
